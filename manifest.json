@@ -1,7 +1,7 @@
 
 {
-  "name": "WorkTime Pro",
-  "short_name": "WorkTime",
+  "name": "Worktime",
+  "short_name": "Worktime",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f1f5f9",
