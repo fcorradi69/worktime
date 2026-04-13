@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WorkTime Pro</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f1f5f9; --card-bg: #ffffff; --text: #1e293b;
+            --text-secondary: #64748b; --input-bg: #f8fafc;
+            --primary: #4f46e5; --secondary: #9333ea; --border: #e2e8f0;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a; --card-bg: rgba(255, 255, 255, 0.05); --text: #f8fafc;
+            --text-secondary: #94a3b8; --input-bg: rgba(255, 255, 255, 0.07);
+            --primary: #6366f1; --secondary: #a855f7; --border: rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            transition: background 0.3s ease; 
+        }
+
+        .container { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border); 
+            border-radius: 24px; 
+            padding: 30px; 
+            width: 90%; 
+            max-width: 380px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+            box-sizing: border-box;
+        }
+
+        /* MODALITÀ FULL SCREEN PER SMARTPHONE */
+        @media (max-width: 480px) {
+            body { align-items: flex-start; }
+            .container { 
+                width: 100%; 
+                max-width: none; 
+                min-height: 100vh; 
+                border-radius: 0; 
+                border: none;
+                padding: 20px;
+            }
+            .header-btns { top: 20px; right: 20px; }
+        }
+
+        .header-btns { position: absolute; top: 25px; right: 25px; display: flex; gap: 10px; z-index: 10; }
+        .icon-btn { background: var(--input-bg); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 12px; cursor: pointer; font-size: 1.1rem; }
+        
+        h1 { font-weight: 800; font-size: 1.6rem; margin-top: 0; margin-bottom: 30px; background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .column-layout { display: flex; flex-direction: column; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); font-weight: 700; }
+        
+        input { 
+            background: var(--input-bg); border: 1px solid var(--border); border-radius: 14px; 
+            padding: 16px; color: var(--text); font-size: 1.1rem; outline: none; width: 100%; box-sizing: border-box; 
+            -webkit-appearance: none; /* Migliora resa su iOS */
+        }
+        
+        .settings-panel { display: none; background: var(--input-bg); border-radius: 18px; padding: 20px; margin-bottom: 25px; border: 1px solid var(--primary); animation: fadeIn 0.3s; }
+        
+        .result-card { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            padding: 30px; border-radius: 22px; text-align: center; color: white; 
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4); margin-top: 10px;
+        }
+        .result-label { font-size: 0.85rem; opacity: 0.8; font-weight: 600; text-transform: uppercase; }
+        .result-time { font-size: 3.2rem; font-weight: 800; letter-spacing: -2px; margin-top: 5px; }
+
+        .warning { background: #fee2e2; color: #b91c1c; padding: 14px; border-radius: 14px; font-size: 0.9rem; font-weight: 600; display: none; margin-bottom: 15px; text-align: center; border: 1px solid #fecaca; }
+    </style>
+</head>
+<body data-theme="light">
+
+<div class="container">
+    <div class="header-btns">
+        <button class="icon-btn" onclick="toggleSettings()">⚙️</button>
+        <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+    
+    <h1>WorkTime</h1>
+
+    <div id="settings" class="settings-panel">
+        <div class="column-layout">
+            <div class="input-group">
+                <label>Ore Lavoro Giornaliere</label>
+                <input type="time" id="targetTime" value="08:00" oninput="calcola()">
+            </div>
+            <div class="input-group">
+                <label>Pausa Minima</label>
+                <input type="time" id="pausaMinTime" value="00:30" oninput="calcola()">
+            </div>
+        </div>
+    </div>
+    
+    <div class="column-layout">
+        <div class="input-group">
+            <label>Entrata Mattino</label>
+            <input type="time" id="eM" value="09:00" oninput="calcola()">
+        </div>
+        <div class="input-group">
+            <label>Uscita Mattino</label>
+            <input type="time" id="uM" value="13:00" oninput="calcola()">
+        </div>
+        <div class="input-group">
+            <label>Entrata Pomeriggio</label>
+            <input type="time" id="eP" value="14:00" oninput="calcola()">
+        </div>
+
+        <div id="warn" class="warning"></div>
+
+        <div class="result-card">
+            <div class="result-label">Uscita Prevista</div>
+            <div id="res" class="result-time">--:--</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSettings() {
+        const p = document.getElementById('settings');
+        p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleTheme() {
+        const b = document.body;
+        const isLight = b.getAttribute('data-theme') === 'light';
+        b.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        document.getElementById('themeBtn').innerText = isLight ? '☀️' : '🌙';
+    }
+
+    function calcola() {
+        const toMin = (t) => {
+            if (!t) return 0;
+            const [h, m] = t.split(':').map(Number);
+            return h * 60 + m;
+        };
+
+        const eM = toMin(document.getElementById('eM').value);
+        const uM = toMin(document.getElementById('uM').value);
+        const eP = toMin(document.getElementById('eP').value);
+        const targetMin = toMin(document.getElementById('targetTime').value);
+        const pausaMinTarget = toMin(document.getElementById('pausaMinTime').value);
+        
+        const warn = document.getElementById('warn');
+        const res = document.getElementById('res');
+
+        if ((eP - uM) < pausaMinTarget) {
+            warn.innerText = `⚠️ Pausa minima non rispettata`;
+            warn.style.display = 'block';
+        } else {
+            warn.style.display = 'none';
+        }
+
+        const lavoratoMattina = uM - eM;
+        const daLavorare = targetMin - lavoratoMattina;
+        
+        if (daLavorare <= 0) {
+            res.innerText = "OK!";
+            return;
+        }
+
+        const uscitaMin = eP + daLavorare;
+        const hU = Math.floor(uscitaMin / 60) % 24;
+        const mU = Math.round(uscitaMin % 60);
+        
+        res.innerText = `${hU.toString().padStart(2, '0')}:${mU.toString().padStart(2, '0')}`;
+    }
+    calcola();
+</script>
+
+</body>
+</html>
