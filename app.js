@@ -98,7 +98,7 @@ function calcola() {
   initialize();
 }
 
-document.AddEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   initialize();
   calcola();
 });
