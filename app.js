@@ -44,9 +44,10 @@ function calcola() {
 
   if(eM === 0 && uM === 0 && eP === 0) {
     result = "--:--";
-    console.log("annullato")
     return;
   }
+
+  console.log("next");
 
   const warn = document.getElementById("warn");
   const res = document.getElementById("res");
