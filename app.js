@@ -59,16 +59,15 @@ function calcola() {
   const eP = toMin(document.getElementById("eP").value);
   const targetMin = toMin(document.getElementById("targetTime").value);
   const pausaMinTarget = toMin(document.getElementById("pausaMinTime").value);
+  const warn = document.getElementById("warn");
+  const res = document.getElementById("res");
   let result = "--:--";
-
+  
   if(eM === 0 && uM === 0 && eP === 0) {
     result = "--:--";
     res.innerText = result;
     return;
   }
-
-  const warn = document.getElementById("warn");
-  const res = document.getElementById("res");
 
   if (uM > 0 && pausaMinTarget > 0 && eP - uM < pausaMinTarget) {
     warn.innerText = `⚠️ Pausa minima ${document.getElementById("pausaMinTime").value} non rispettata e aggiunta per default`;
