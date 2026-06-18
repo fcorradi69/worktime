@@ -37,7 +37,7 @@ function calcola() {
 
   const eM = toMin(document.getElementById("eM").value);
   const uM = toMin(document.getElementById("uM").value);
-  const eP = toMin(document.getElementById("eP").value);
+  let eP = toMin(document.getElementById("eP").value);
   const targetMin = toMin(document.getElementById("targetTime").value);
   const pausaMinTarget = toMin(document.getElementById("pausaMinTime").value);
   let result = "--:--";
@@ -59,6 +59,7 @@ function calcola() {
     // const mep = Math.round(ep % 60);
     // const resultep = `${hep.toString().padStart(2, "0")}:${mep.toString().padStart(2, "0")}`;
     // document.getElementById("eP").value = resultep;
+    eP = uM + pausaMinTarget;
   } else {
     warn.style.display = "none";
   }
@@ -71,7 +72,7 @@ function calcola() {
     return;
   }
 
-  const uscitaMin = (eP - uM < pausaMinTarget ? uM + pausaMinTarget : eP) + daLavorare ;
+  const uscitaMin = eP + daLavorare ;
   const hU = Math.floor(uscitaMin / 60) % 24;
   const mU = Math.round(uscitaMin % 60);
   result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;
