@@ -47,8 +47,6 @@ function calcola() {
     return;
   }
 
-  console.log("next");
-
   const warn = document.getElementById("warn");
   const res = document.getElementById("res");
 
