@@ -28,13 +28,20 @@ function initialize() {
   }
 }
 
-function update(){
+function update(target, pausamin, em, um, ep){
+  const totext = (value) => {
+    if(!value) return 0;
+    ora = Math.floor(value / 60) % 24;
+    minuti = Math.round(value % 60);
+    return `${ora.toString().padStart(2, "0")}-${minuti.toString().padStart(2, "0")}`;
+  }
+
   const json = {
-    eM: document.getElementById("eM").value,
-    uM: document.getElementById("uM").value,
-    eP: document.getElementById("eP").value,
-    targetTime: document.getElementById("targetTime").value,
-    pausaMinTime: document.getElementById("pausaMinTime").value
+    eM: totext(em),
+    uM: totext(um),
+    eP: totext(ep),
+    targetTime: totext(target),
+    pausaMinTime: totext(pausamin)
   };
 
   localStorage.setItem("worktime", JSON.stringify(json), null, 2);
@@ -67,7 +74,7 @@ function calcola() {
     warn.innerText = `⚠️ Pausa minima ${document.getElementById("pausaMinTime").value} non rispettata e aggiunta per default`;
     warn.style.display = "block";
     eP = uM + pausaMinTarget;
-    update()
+    update(targetTime, pausaMinTarget, eM, uM, eP)
     initialize();
     return;
   } else {
@@ -87,6 +94,9 @@ function calcola() {
   const mU = Math.round(uscitaMin % 60);
   result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;  
   res.innerText = result;
+
+  update(targetTime, pausaMinTarget, eM, uM, eP);
+  initialize();
 }
 
 initialize();
