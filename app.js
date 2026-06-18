@@ -56,7 +56,7 @@ function calcola() {
 
   const eM = toMin(document.getElementById("eM").value);
   const uM = toMin(document.getElementById("uM").value);
-  let eP = toMin(document.getElementById("eP").value);
+  const eP = toMin(document.getElementById("eP").value);
   const targetMin = toMin(document.getElementById("targetTime").value);
   const pausaMinTarget = toMin(document.getElementById("pausaMinTime").value);
   let result = "--:--";
@@ -73,8 +73,7 @@ function calcola() {
   if (uM > 0 && pausaMinTarget > 0 && eP - uM < pausaMinTarget) {
     warn.innerText = `⚠️ Pausa minima ${document.getElementById("pausaMinTime").value} non rispettata e aggiunta per default`;
     warn.style.display = "block";
-    eP = uM + pausaMinTarget;
-    update(targetTime, pausaMinTarget, eM, uM, eP)
+    update(targetTime, pausaMinTarget, eM, uM, uM + pausaMinTarget)
     initialize();
     return;
   } else {
