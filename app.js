@@ -96,9 +96,7 @@ function calcola() {
   update(targetTime, pausaMinTarget, eM, uM, eP);
   initialize();
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  initialize();
-  calcola();
-});
+ 
+initialize();
+calcola();
 
