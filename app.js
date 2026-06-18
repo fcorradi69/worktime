@@ -28,6 +28,19 @@ function initialize() {
   }
 }
 
+function update(){
+  const json = {
+    eM: document.getElementById("eM").value,
+    uM: document.getElementById("uM").value,
+    eP: document.getElementById("eP").value,
+    targetTime: document.getElementById("targetTime").value,
+    pausaMinTime: document.getElementById("pausaMinTime").value,
+    uscitaPrevista: result,
+  };
+
+  localStorage.setItem("worktime", JSON.stringify(json), null, 2);
+}
+
 function calcola() {
   const toMin = (t) => {
     if (!t) return 0;
@@ -60,6 +73,8 @@ function calcola() {
     // const resultep = `${hep.toString().padStart(2, "0")}:${mep.toString().padStart(2, "0")}`;
     // document.getElementById("eP").value = resultep;
     eP = uM + pausaMinTarget;
+    update()
+    initialize();
   } else {
     warn.style.display = "none";
   }
@@ -75,18 +90,7 @@ function calcola() {
   const uscitaMin = eP + daLavorare ;
   const hU = Math.floor(uscitaMin / 60) % 24;
   const mU = Math.round(uscitaMin % 60);
-  result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;
-
-  const json = {
-    eM: document.getElementById("eM").value,
-    uM: document.getElementById("uM").value,
-    eP: document.getElementById("eP").value,
-    targetTime: document.getElementById("targetTime").value,
-    pausaMinTime: document.getElementById("pausaMinTime").value,
-    uscitaPrevista: result,
-  };
-
-  localStorage.setItem("worktime", JSON.stringify(json), null, 2);
+  result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;  
   res.innerText = result;
 }
 
