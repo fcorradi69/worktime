@@ -71,7 +71,7 @@ function calcola() {
     return;
   }
 
-  const uscitaMin = eP + daLavorare + (eP - uM < pausaMinTarget ? pausaMinTarget: 0);
+  const uscitaMin = (eP - uM < pausaMinTarget ? uM + pausaMinTarget : eP) + daLavorare ;
   const hU = Math.floor(uscitaMin / 60) % 24;
   const mU = Math.round(uscitaMin % 60);
   result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;
