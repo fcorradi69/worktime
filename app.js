@@ -40,7 +40,7 @@ function calcola() {
   const eP = toMin(document.getElementById("eP").value);
   const targetMin = toMin(document.getElementById("targetTime").value);
   const pausaMinTarget = toMin(document.getElementById("pausaMinTime").value);
-  const result = "--:--";
+  let result = "--:--";
 
   if(eM === 0 && uM === 0 && eP === 0) {
     result = "--:--";
