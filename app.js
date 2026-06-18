@@ -66,14 +66,10 @@ function calcola() {
   if (uM > 0 && pausaMinTarget > 0 && eP - uM < pausaMinTarget) {
     warn.innerText = `⚠️ Pausa minima ${document.getElementById("pausaMinTime").value} non rispettata e aggiunta per default`;
     warn.style.display = "block";
-    // const ep = uM + pausaMinTarget;
-    // const hep = Math.floor(ep / 60) % 24;
-    // const mep = Math.round(ep % 60);
-    // const resultep = `${hep.toString().padStart(2, "0")}:${mep.toString().padStart(2, "0")}`;
-    // document.getElementById("eP").value = resultep;
     eP = uM + pausaMinTarget;
     update()
     initialize();
+    return;
   } else {
     warn.style.display = "none";
   }
