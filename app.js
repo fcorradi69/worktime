@@ -80,6 +80,8 @@ function calcola() {
 
   localStorage.setItem("worktime", JSON.stringify(json), null, 2);
 
+  if(eM === 0 && uM === 0 && eP === 0) result = "--:--";
+
   res.innerText = result;
 }
 
