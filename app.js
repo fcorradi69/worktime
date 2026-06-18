@@ -33,7 +33,7 @@ function update(target, pausamin, em, um, ep){
     if(!value) return 0;
     ora = Math.floor(value / 60) % 24;
     minuti = Math.round(value % 60);
-    return `${ora.toString().padStart(2, "0")}-${minuti.toString().padStart(2, "0")}`;
+    return `${ora.toString().padStart(2, "0")}:${minuti.toString().padStart(2, "0")}`;
   }
 
   const json = {
