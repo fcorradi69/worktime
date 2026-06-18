@@ -40,6 +40,12 @@ function calcola() {
   const eP = toMin(document.getElementById("eP").value);
   const targetMin = toMin(document.getElementById("targetTime").value);
   const pausaMinTarget = toMin(document.getElementById("pausaMinTime").value);
+  const result = "--:--";
+
+  if(eM === 0 && uM === 0 && eP === 0) {
+    result = "--:--";
+    return;
+  }
 
   const warn = document.getElementById("warn");
   const res = document.getElementById("res");
@@ -67,7 +73,7 @@ function calcola() {
   const uscitaMin = eP + daLavorare;
   const hU = Math.floor(uscitaMin / 60) % 24;
   const mU = Math.round(uscitaMin % 60);
-  const result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;
+  result = `${hU.toString().padStart(2, "0")}:${mU.toString().padStart(2, "0")}`;
 
   const json = {
     eM: document.getElementById("eM").value,
@@ -79,9 +85,6 @@ function calcola() {
   };
 
   localStorage.setItem("worktime", JSON.stringify(json), null, 2);
-
-  if(eM === 0 && uM === 0 && eP === 0) result = "--:--";
-
   res.innerText = result;
 }
 
