@@ -34,8 +34,7 @@ function update(){
     uM: document.getElementById("uM").value,
     eP: document.getElementById("eP").value,
     targetTime: document.getElementById("targetTime").value,
-    pausaMinTime: document.getElementById("pausaMinTime").value,
-    uscitaPrevista: result,
+    pausaMinTime: document.getElementById("pausaMinTime").value
   };
 
   localStorage.setItem("worktime", JSON.stringify(json), null, 2);
