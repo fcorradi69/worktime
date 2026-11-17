@@ -1,6 +1,6 @@
 const CACHE_NAME = 'worktime-pwa-v1';
 const ASSETS_TO_CACHE = [
-  '',
+  './',
   'index.html',
   'manifest.json',
   'style.css',
@@ -38,7 +38,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
 
   // Gestisci solo le richieste GET
-  if (event.request.method !== 'GET') return;
+  if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
