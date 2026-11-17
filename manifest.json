@@ -9,7 +9,7 @@
   "description": "Gestione orario lavorativo",
   "icons": [
     {
-      'src':'icon.svg',
+      'scr':'icon.svg',
       "sizes": "144x144",
       "type": "image/svg"
     }
