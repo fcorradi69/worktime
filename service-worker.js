@@ -2,7 +2,6 @@ const CACHE_NAME = 'worktime-pwa-v1';
 const ASSETS_TO_CACHE = [
   '',
   'index.html',
-  'worktime.html',
   'manifest.json',
   'style.css',
   'app.js',
