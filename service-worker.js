@@ -5,6 +5,7 @@ const ASSETS_TO_CACHE = [
   'manifest.json',
   'style.css',
   'app.js',
+  'icon.svg',
 ];
 
 //install: cache dei file base
