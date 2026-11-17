@@ -1,20 +1,11 @@
-const CACHE_NAME = 'orario-pwa-v1';
+const CACHE_NAME = 'worktime-pwa-v1';
 const ASSETS_TO_CACHE = [
   '',
   'index.html',
+  'worktime.html',
   'manifest.json',
-  'css/style.css',
-  'js/app.js',
-  'js/binding.js',
-  'js/calcolo.js',
-  'js/defaults.js',
-  'js/dialog.js',
-  'js/icons.js',
-  'js/orario.js',
-  'js/store.js',
-  'js/validator.js',
-  'images/orario.png',
-  'images/clock.svg',
+  'style.css',
+  'app.js',
 ];
 
 //install: cache dei file base
