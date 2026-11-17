@@ -58,6 +58,16 @@
   </div>
 
   <script src="app.js"></script>
+   <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            .register("service-worker.js")
+            .then((response) => console.log("Service worker registered"))
+            .catch((err) => console.log("service worker not registered"));
+        });
+      }
+    </script>
 
 </body>
 
