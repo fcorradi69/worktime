@@ -64,6 +64,18 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
+          // Se è una navigazione tra pagine e sei offline, mostra la index in cache
+          if (event.request.mode === 'navigate') {
+            return caches.match('index.html');
+          }
+
+          // Per tutte le altre risorse (immagini, API, font), restituisci sempre una Response valida
+          return new Response('Risorsa non disponibile offline', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+          });
+          
           // Se anche la rete fallisce e non ho cache, potresti:
           // - restituire una pagina offline personalizzata
           // Per ora non restituiamo niente di speciale.
